@@ -21,12 +21,12 @@ public class GoodsController {
     GoodsService goodsService;
 
     @GetMapping("/goods")
-    public List<Goods> getAllCourses() {
+    public List<Goods> getAllGoods() {
         return goodsService.findAllGood();
     }
 
     @GetMapping("/goods/{id}")
-    public ResponseEntity<GoodsData> getCourse(@PathVariable long id) {
+    public ResponseEntity<GoodsData> getGoods(@PathVariable long id) {
         try {
             GoodsData result = GoodsData.from(goodsService.findOneGood(id));
             return new ResponseEntity<>(result, HttpStatus.OK);
@@ -36,20 +36,20 @@ public class GoodsController {
     }
 
     @DeleteMapping("/goods/{id}")
-    public ResponseEntity<Void> deleteCourse(@PathVariable long id) {
+    public ResponseEntity<Void> deleteGoods(@PathVariable long id) {
         goodsService.deleteGoods(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/goods/{id}")
-    public ResponseEntity<GoodsData> updateCourse(@RequestBody GoodsData goodsData) {
+    public ResponseEntity<GoodsData> updateGoods(@RequestBody GoodsData goodsData) {
         return new ResponseEntity<>(GoodsData.from(goodsService.saveGoods(Goods.from(goodsData))), HttpStatus.OK);
     }
 
     @PostMapping("/goods/{name}")
-    public ResponseEntity<Void> createCourse(@PathVariable String name, @RequestBody GoodsData goodsData) {
-        GoodsData createdCourse = GoodsData.from(goodsService.saveGoods(Goods.from(goodsData)));
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdCourse.getId())
+    public ResponseEntity<Void> createGoods(@PathVariable String name, @RequestBody GoodsData goodsData) {
+        GoodsData createdGoods = GoodsData.from(goodsService.saveGoods(Goods.from(goodsData)));
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdGoods.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
