@@ -41,13 +41,13 @@ public class GoodsController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/goods/{id}")
+    @PutMapping("/goods")
     public ResponseEntity<GoodsData> updateGoods(@RequestBody GoodsData goodsData) {
         return new ResponseEntity<>(GoodsData.from(goodsService.saveGoods(Goods.from(goodsData))), HttpStatus.OK);
     }
 
-    @PostMapping("/goods/{name}")
-    public ResponseEntity<Void> createGoods(@PathVariable String name, @RequestBody GoodsData goodsData) {
+    @PostMapping("/goods")
+    public ResponseEntity<Void> createGoods(@RequestBody GoodsData goodsData) {
         GoodsData createdGoods = GoodsData.from(goodsService.saveGoods(Goods.from(goodsData)));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdGoods.getId())
                 .toUri();
