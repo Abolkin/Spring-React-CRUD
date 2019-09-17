@@ -19,9 +19,9 @@ class GoodsDataService {
         return axios.delete(`${API_URL}/goods/${id}`);
     }
 
-    updateCourse(id, goods) {
+    updateCourse(goods) {
         //console.log('executed service')
-        return axios.put(`${API_URL}/goods/${id}`, goods);
+        return axios.put(`${API_URL}/goods/`, goods);
     }
 
     createCourse(goods) {

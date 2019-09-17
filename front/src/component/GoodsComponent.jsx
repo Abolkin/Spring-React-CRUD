@@ -61,7 +61,7 @@ class GoodsComponent extends Component {
             CourseDataService.createCourse(goods)
                 .then(() => this.props.history.push('/goods'))
         } else {
-            CourseDataService.updateCourse(this.state.id, goods)
+            CourseDataService.updateCourse(goods)
                 .then(() => this.props.history.push('/goods'))
         }
 
