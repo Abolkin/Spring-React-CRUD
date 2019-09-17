@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import CourseDataService from '../service/GoodsDataService';
+import GoodsDataService from '../service/GoodsDataService';
 
 class ListGoodsComponent extends Component {
     constructor(props) {
@@ -8,18 +8,18 @@ class ListGoodsComponent extends Component {
             goods: [],
             message: null
         }
-        this.deleteCourseClicked = this.deleteCourseClicked.bind(this)
-        this.updateCourseClicked = this.updateCourseClicked.bind(this)
-        this.addCourseClicked = this.addCourseClicked.bind(this)
-        this.refreshCourses = this.refreshCourses.bind(this)
+        this.deleteGoodsClicked = this.deleteGoodsClicked.bind(this)
+        this.updateGoodsClicked = this.updateGoodsClicked.bind(this)
+        this.addGoodsClicked = this.addGoodsClicked.bind(this)
+        this.refreshGoods = this.refreshGoods.bind(this)
     }
 
     componentDidMount() {
-        this.refreshCourses();
+        this.refreshGoods();
     }
 
-    refreshCourses() {
-        CourseDataService.retrieveAllCourses()
+    refreshGoods() {
+        GoodsDataService.retrieveAllGoods()
             .then(
                 response => {
                     this.setState({ goods: response.data })
@@ -27,22 +27,22 @@ class ListGoodsComponent extends Component {
             )
     }
 
-    deleteCourseClicked(id) {
-        CourseDataService.deleteCourse(id)
+    deleteGoodsClicked(id) {
+        GoodsDataService.deleteGoods(id)
             .then(
                 response => {
-                    this.setState({ message: `Delete of course ${id} Successful` })
-                    this.refreshCourses()
+                    this.setState({ message: `Delete of goods ${id} Successful` })
+                    this.refreshGoods()
                 }
             )
 
     }
 
-    addCourseClicked() {
+    addGoodsClicked() {
         this.props.history.push(`/goods/-1`)
     }
 
-    updateCourseClicked(id) {
+    updateGoodsClicked(id) {
         console.log('update ' + id)
         this.props.history.push(`/goods/${id}`)
     }
@@ -72,15 +72,15 @@ class ListGoodsComponent extends Component {
                                             <td>{goods.id}</td>
                                             <td>{goods.name}</td>
                                             <td>{goods.price}</td>
-                                            <td><button className="btn btn-success" onClick={() => this.updateCourseClicked(goods.id)}>Изменить</button></td>
-                                            <td><button className="btn btn-warning" onClick={() => this.deleteCourseClicked(goods.id)}>Удалить</button></td>
+                                            <td><button className="btn btn-success" onClick={() => this.updateGoodsClicked(goods.id)}>Изменить</button></td>
+                                            <td><button className="btn btn-warning" onClick={() => this.deleteGoodsClicked(goods.id)}>Удалить</button></td>
                                         </tr>
                                 )
                             }
                         </tbody>
                     </table>
                     <div className="row">
-                        <button className="btn btn-success" onClick={this.addCourseClicked}>Добавить</button>
+                        <button className="btn btn-success" onClick={this.addGoodsClicked}>Добавить</button>
                     </div>
                 </div>
             </div>

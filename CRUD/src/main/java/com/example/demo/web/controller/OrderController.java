@@ -25,7 +25,7 @@ public class OrderController {
         return orderService.findAllOrders();
     }
 
-    @GetMapping("/order/{id}")
+    @GetMapping("/orders/{id}")
     public ResponseEntity<OrderData> getOrder(@PathVariable long id) {
         try {
             OrderData result = OrderData.from(orderService.findOneOrder(id));
@@ -35,18 +35,18 @@ public class OrderController {
         }
     }
 
-    @DeleteMapping("/order/{id}")
+    @DeleteMapping("/orders/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable long id) {
         orderService.deleteOrder(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/order")
+    @PutMapping("/orders")
     public ResponseEntity<OrderData> updateOrder(@RequestBody OrderData orderData) {
         return new ResponseEntity<>(OrderData.from(orderService.saveOrder(Order.from(orderData))), HttpStatus.OK);
     }
 
-    @PostMapping("/order")
+    @PostMapping("/orders")
     public ResponseEntity<Void> createOrder(@PathVariable String name, @RequestBody OrderData orderData) {
         OrderData createdOrder = OrderData.from(orderService.saveOrder(Order.from(orderData)));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdOrder.getId())

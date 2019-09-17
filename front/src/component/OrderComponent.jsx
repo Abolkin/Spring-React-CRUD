@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import GoodsDataService from '../service/GoodsDataService';
+import OrderDataService from '../service/OrderDataService';
 import {InputGroup} from 'react-bootstrap';
 
-class GoodsComponent extends Component {
+class OrderComponent extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             id: this.props.match.params.id,
-            name: '',
-            price: ''
+            client: '',
+            date: '',
+            address: '',
         }
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -27,24 +28,25 @@ class GoodsComponent extends Component {
             return
         }
 
-        GoodsDataService.retrieveGoods(this.state.id)
+        OrderDataService.retrieveOrder(this.state.id)
             .then(response => this.setState({
-                name: response.data.name,
-                price: response.data.price
+                client: response.data.client,
+                date: response.data.date,
+                address: response.data.address
             }))
     }
 
     validate(values) {
         let errors = {}
-        if (!values.name) {
+        if (!values.client) {
             errors.name = 'Введите название'
-        } else if (values.name.length < 5) {
+        } else if (values.client.length < 5) {
             errors.name = 'Название не может иметь менее 5 символов'
         }
-        if (!values.price) {
+        if (!values.address) {
             errors.name = 'Введите цену'
-        } else if (values.price < 0) {
-            errors.name = 'Введите корректную цену'
+        } else if (values.address.length < 5) {
+            errors.name = 'Название не может иметь менее 5 символов'
         }
         return errors
 
@@ -52,18 +54,19 @@ class GoodsComponent extends Component {
 
     onSubmit(values) {
 
-        let goods = {
+        let order = {
             id: this.state.id,
-            name: values.name,
-            price: values.price,
+            client: values.client,
+            date: values.date,
+            address: values.address,
         }
 
         if (this.state.id === -1) {
-            GoodsDataService.createGoods(goods)
-                .then(() => this.props.history.push('/goods'))
+            OrderDataService.createOrder(order)
+                .then(() => this.props.history.push('/orders'))
         } else {
-            GoodsDataService.updateGoods(goods)
-                .then(() => this.props.history.push('/goods'))
+            OrderDataService.updateOrder(order)
+                .then(() => this.props.history.push('/orders'))
         }
 
         console.log(values);
@@ -71,14 +74,14 @@ class GoodsComponent extends Component {
 
     render() {
 
-        let { name, id, price } = this.state
+        let { client, id, date, address} = this.state
 
         return (
             <div>
                 <h3>Товары</h3>
                 <div className="container">
                     <Formik
-                        initialValues={{ id, name, price }}
+                        initialValues={{ client, id, date, address }}
                         onSubmit={this.onSubmit}
                         validateOnChange={false}
                         validateOnBlur={false}
@@ -99,17 +102,24 @@ class GoodsComponent extends Component {
                                     </InputGroup>
                                     <InputGroup className="mb-3">
                                         <InputGroup.Prepend>
-                                            <InputGroup.Text id="inputGroup-sizing-default">Название</InputGroup.Text>
+                                            <InputGroup.Text id="inputGroup-sizing-default">Клиент</InputGroup.Text>
                                         </InputGroup.Prepend>
                                                 <Field className="form-control" aria-label="Id"
-                                                       aria-describedby="inputGroup-sizing-default" name="name" />
+                                                       aria-describedby="inputGroup-sizing-default" name="client" />
                                     </InputGroup>
                                     <InputGroup className="mb-3">
                                         <InputGroup.Prepend>
-                                            <InputGroup.Text id="inputGroup-sizing-default">Цена</InputGroup.Text>
+                                            <InputGroup.Text id="inputGroup-sizing-default">Дата</InputGroup.Text>
                                         </InputGroup.Prepend>
                                         <Field className="form-control" aria-label="Id"
-                                               aria-describedby="inputGroup-sizing-default" name="price" />
+                                               aria-describedby="inputGroup-sizing-default" name="date" />
+                                    </InputGroup>
+                                    <InputGroup className="mb-3">
+                                        <InputGroup.Prepend>
+                                            <InputGroup.Text id="inputGroup-sizing-default">Адрес</InputGroup.Text>
+                                        </InputGroup.Prepend>
+                                        <Field className="form-control" aria-label="Id"
+                                               aria-describedby="inputGroup-sizing-default" name="address" />
                                     </InputGroup>
                                     <button className="btn btn-success" type="submit">Сохранить</button>
                                 </Form>
@@ -123,4 +133,4 @@ class GoodsComponent extends Component {
     }
 }
 
-export default GoodsComponent
+export default OrderComponent

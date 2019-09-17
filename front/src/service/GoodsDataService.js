@@ -4,28 +4,23 @@ const API_URL = 'http://localhost:8080'
 
 class GoodsDataService {
 
-    retrieveAllCourses() {
-        //console.log('executed service')
+    retrieveAllGoods() {
         return axios.get(`${API_URL}/goods`);
     }
 
-    retrieveCourse(id) {
-        //console.log('executed service')
+    retrieveGoods(id) {
         return axios.get(`${API_URL}/goods/${id}`);
     }
 
-    deleteCourse(id) {
-        //console.log('executed service')
+    deleteGoods(id) {
         return axios.delete(`${API_URL}/goods/${id}`);
     }
 
-    updateCourse(goods) {
-        //console.log('executed service')
+    updateGoods(goods) {
         return axios.put(`${API_URL}/goods/`, goods);
     }
 
-    createCourse(goods) {
-        //console.log('executed service')
+    createGoods(goods) {
         return axios.post(`${API_URL}/goods/`, goods);
     }
 }
