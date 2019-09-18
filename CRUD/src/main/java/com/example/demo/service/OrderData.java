@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 @Builder
-public class OrderData implements Serializable {
+public class OrderData {
 
     private Long id;
     private String client;

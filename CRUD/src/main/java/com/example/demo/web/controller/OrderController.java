@@ -47,7 +47,7 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<Void> createOrder(@PathVariable String name, @RequestBody OrderData orderData) {
+    public ResponseEntity<Void> createOrder(@RequestBody OrderData orderData) {
         OrderData createdOrder = OrderData.from(orderService.saveOrder(Order.from(orderData)));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdOrder.getId())
                 .toUri();

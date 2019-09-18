@@ -11,7 +11,7 @@ public interface OrderService {
 
     List<Order> findAllOrders();
 
-    Order saveOrder(Order goods);
+    Order saveOrder(Order order);
 
     void  deleteOrder(Long id);
 }

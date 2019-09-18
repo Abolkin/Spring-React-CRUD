@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 @ToString
-@Table(name = "ORDER_TABLE")
+@Table(name = "order_table")
 @Entity
 @Builder
 @AllArgsConstructor
