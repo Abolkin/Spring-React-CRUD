@@ -22,6 +22,7 @@ class TradingApp extends Component {
                         <Tab.Content id="nav-tabContent" >
                             <Tab.Pane active id="goods">
                                 <Switch>
+                                    <Route path="/" exact component={ListGoodsComponent}/>
                                     <Route path="/goods" exact component={ListGoodsComponent}/>
                                     <Route path="/goods/:id" component={GoodsComponent}/>
                                 </Switch>
